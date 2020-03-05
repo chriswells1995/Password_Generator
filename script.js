@@ -20,6 +20,8 @@ var generateBtn = document.querySelector("#generate");
 
 // Previous code
 
+// I still need to figure out a way to stop everything if they click cancel 4 times.
+
 function BigFunction() {
 
         // an array of lowercase letters
@@ -29,7 +31,8 @@ function BigFunction() {
         // an array of numbers
         var numbers=["0","1","2","3","4","5","6","7","8","9"];
         // an array of special characters
-        var special=["!","@","#","$","%","^","&","*","(",")"];
+        // var special=["!","@","#","$","%","^","&","*","(",")"];
+        var special=["!","#","$","%","&","(",")","*","+","-",".","/",":",";","<","=",">","?","@","[","]","^","_","`","{","|","}","~"]
     
         // The MAIN array which will hold the final password
         var main=[];
@@ -50,6 +53,8 @@ function BigFunction() {
     
             // The following prompts create the oneFour array, which will determine which of the four character arrays will be used in creating the password
         // prompt for lowercase
+
+        // while(oneFour===null){
         if (confirm("Would you like lowercase letters in the password?")){
             oneFour.push(1)
         }
@@ -68,14 +73,63 @@ function BigFunction() {
         if (confirm("Would you like special characters?")){
             oneFour.push(4)
         }
-    
+        console.log("the oneFour array " + oneFour)
+        if (    (oneFour[0]!==1) &&  (oneFour[0]!==2) &&  (oneFour[0]!==3) &&  (oneFour[0]!==4) ) {
+            alert("You must select at least one character type")
+        }
+        // }
     
         // prompt for length
         passwordLength=prompt("How long would you like the password? (8 - 128 characters");
+
+        // make sure that if they put less than 8 or more then 128, the user can not continue
+        // If that happens, this "if" statement should send them to this "while" loop, which won't let them progress until they follow directions
+
+        if (passwordLength>128 || passwordLength<8){
+            while (passwordLength>128 || passwordLength<8){
+                passwordLength=prompt("That number is not between 8 and 128. How long would you like the password? (8 - 128 characters");
+
+            }
+
+        }
+
+
+            // To insure that there is at least one instance of each type of desired characters, the first few characters will specifically be chosen from each of the desired arrays. 
+            // Because the elements in oneFour signify which character types are desired, that array will be used
+
+            for (i=0; i<oneFour.length; i++){
+
+                if (oneFour[i]===1){
+                    randomSelect=Math.floor(Math.random()*26)
+                    main.push( lowercase[randomSelect] )
+
+                }
+
+                if (oneFour[i]===2){
+                    randomSelect=Math.floor(Math.random()*26)
+                    main.push( uppercase[randomSelect] )
+    
+    
+                }
+                if (oneFour[i]===3){
+                    randomSelect=Math.floor(Math.random()*10)
+                    main.push( numbers[randomSelect] )                
+    
+    
+                }             
+                if (oneFour[i]===4){
+                    randomSelect=Math.floor(Math.random()*special.length)
+                    main.push( special[randomSelect] )
+    
+                }
+
+
+            }
     
         
-                // This for loop goes from 0 to the length of the password minus 1, filling each index spot of main with a character
-            for (i=0; i<passwordLength; i++){
+                // Because the first few characters came from the oneFour elements, this for loop goes from the number of the length of oneFour to the length of the password minus, 
+                // filling the rest of the index spots of main with a character
+            for (i=oneFour.length; i<passwordLength; i++){
     
                 // For each cycle, randomIndex is randomly selected between 0 and the length of oneFour minus 1
                 randomIndex=Math.floor(Math.random()*oneFour.length)
@@ -112,7 +166,7 @@ function BigFunction() {
     
                 }             
                 if (randomType===4){
-                    randomSelect=Math.floor(Math.random()*10)
+                    randomSelect=Math.floor(Math.random()*special.length)
                     main.push( special[randomSelect] )
     
                 }
@@ -120,7 +174,9 @@ function BigFunction() {
             }
     
     
-    // This allerts all the characters randomly selected for the password
-    alert(main)
+    // This creates a new variable called new1, which has all of the characters of main without the commas, and is fed into the textarea and spat out onto the page
+    // alert(main)
+    var new1 = main.join('');
+    document.getElementById("password").innerHTML = new1;
 
 }
