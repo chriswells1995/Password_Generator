@@ -1,118 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
 
-    <script type = "text/javascript">
-
-        // an array of lowercase letters
-    var lowercase= ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j","k", "l", "m","n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    // an array of uppercase letters
-    var uppercase= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J","K", "L", "M","N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-    // an array of numbers
-    var numbers=["0","1","2","3","4","5","6","7","8","9"];
-    // an array of special characters
-    var special=["!","@","#","$","%","^","&","*","(",")"];
-
-    // The MAIN array which will hold the final password
-    var main=[];
-
-    // This variable will be randomly selected to be 1,2,3, or 4 to determine if the next character in the password will be a 
-    // lowercase, uppercase, numeric, or special character, respectivelt
-    var randomType; 
-
-    // This variable will be used to randomly select one of the 26 letters, one of the 10 numbers, or one of the specialty characters
-    var randomSelect;
-
-    // This array is determined by the prompts. It may contain a 1, 2, 3, and/or 4, coresponding to lowercase, uppercase, numerics, and specialty, respecitvely   
-    var oneFour=[];
-
-    // This is a random number between (and including) 0 and the length of the oneFour array minus 1. 
-    // It is used to randomly select one of the elements in the oneFour array
-    var randomIndex;
-
-        // The following prompts create the oneFour array, which will determine which of the four character arrays will be used in creating the password
-    // prompt for lowercase
-    if (confirm("Would you like lowercase letters in the password?")){
-        oneFour.push(1)
-    }
-
-    // prompt for uppercase
-    if (confirm("Would you like uppercase letters in the password?")){
-        oneFour.push(2)
-    }
-
-    // prompt for numeric
-    if (confirm("Would you like numbers in the password?")){
-        oneFour.push(3)
-    }
-
-    // prompt for special
-    if (confirm("Would you like special characters?")){
-        oneFour.push(4)
-    }
+    <!-- First, the user clicks on "Generate Password" -->
+    <!-- Then, they are given the prompts -->
+    <!-- Then the password is randomly created -->
+    <!-- Then the password appears in the section currently showing "Your secure password", which will change to "Generated Password" -->
 
 
-    // prompt for length
-    passwordLength=prompt("How long would you like the password? (8 - 128 characters");
-
-    
-            // This for loop goes from 0 to the length of the password minus 1, filling each index spot of main with a character
-        for (i=0; i<passwordLength; i++){
-
-            // For each cycle, randomIndex is randomly selected between 0 and the length of oneFour minus 1
-            randomIndex=Math.floor(Math.random()*oneFour.length)
-
-            // randomType is then defined as either 1, 2, 3, or 4,
-            randomType=oneFour[randomIndex]
-
-            console.log("the ", i ," time")
-            console.log(oneFour)
-            console.log(randomIndex)
-            console.log(randomType)
-            
-            // These four "if" statements depend on what number randomType is, and will allow the different character types to be included in the password
-
-            if (randomType===1){
-                // in each case, randomSelect is a random number between 0 and the number of characters in the array minus 1. This creates an index number
-                // which will be used in that character array, selecting a character to be pushed into the main array
-                randomSelect=Math.floor(Math.random()*26)
-                main.push( lowercase[randomSelect] )
+    <!-- To make clicking a button call a function
+    <button onclick="myFunction()">Try it</button> -->
 
 
-            }
-
-            if (randomType===2){
-                randomSelect=Math.floor(Math.random()*10)
-                main.push( uppercase[randomSelect] )
 
 
-            }
-            if (randomType===3){
-                randomSelect=Math.floor(Math.random()*10)
-                main.push( numbers[randomSelect] )                
 
 
-            }             
-            if (randomType===4){
-                randomSelect=Math.floor(Math.random()*10)
-                main.push( special[randomSelect] )
+      <!-- The outmost bo which calls to the defined "wrapper" class's style properties -->
+    <div class="wrapper">
+        <!-- the heading -->
+      <header>
+        <h1>Password Generator</h1>
+      </header>
+      <!-- This "card" is the main content -->
+      <div class="card">
+          <!-- Inside the card, there is first a smaller header with the phrase, "Generate a password" -->
+        <div class="card-header">
+          <h2>Generate a Password</h2>
+        </div>
+        <!-- Under that, is the card's body  -->
 
-            }
-
-        }
-
-
-// This allerts all the characters randomly selected for the password
-alert(main)
-
-    </script>
-
-
-    
-</body>
+        <div class="card-body">
+            <!-- Using the text area object with these sepecific properties,  -->
+          <textarea
+            readonly
+            id="password"
+            placeholder="Your Secure Password"
+            aria-label="Generated Password"
+          ></textarea>
+        </div>
+        <div class="card-footer">
+          <button onclick="BigFunction()" id="generate" class="btn">Generate Password</button>
+        </div>
+        <!-- this closes the card -->
+      </div>
+      <!-- This closes the "wrapper" -->
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
