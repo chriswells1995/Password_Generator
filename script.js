@@ -1,4 +1,4 @@
-// Assignment Code
+// Assignment Code 
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
@@ -50,34 +50,49 @@ function BigFunction() {
         // This is a random number between (and including) 0 and the length of the oneFour array minus 1. 
         // It is used to randomly select one of the elements in the oneFour array
         var randomIndex;
+
+        // This is the final product, and it is what will be seen on the page
+        var finalPassword;
     
             // The following prompts create the oneFour array, which will determine which of the four character arrays will be used in creating the password
         // prompt for lowercase
 
-        // while(oneFour===null){
-        if (confirm("Would you like lowercase letters in the password?")){
+        var checkLower;
+        var checkUpper;
+        var checkNumber;
+        var checkSpecial;
+
+
+        while(checkLower!==true && checkUpper!==true && checkNumber!== true &&checkSpecial!==true){
+             checkLower=confirm("Would you like lowercase letters in the password?");
+             checkUpper=confirm("Would you like uppercase letters in the password?");
+             checkNumber=confirm("Would you like numbers in the password?");
+             checkSpecial=confirm("Would you like special characters?");
+            
+
+        if (checkLower===true){
             oneFour.push(1)
         }
     
         // prompt for uppercase
-        if (confirm("Would you like uppercase letters in the password?")){
+        if (checkUpper===true){
             oneFour.push(2)
         }
     
         // prompt for numeric
-        if (confirm("Would you like numbers in the password?")){
+        if (checkNumber===true){
             oneFour.push(3)
         }
     
         // prompt for special
-        if (confirm("Would you like special characters?")){
+        if (checkSpecial===true){
             oneFour.push(4)
         }
         console.log("the oneFour array " + oneFour)
         if (    (oneFour[0]!==1) &&  (oneFour[0]!==2) &&  (oneFour[0]!==3) &&  (oneFour[0]!==4) ) {
             alert("You must select at least one character type")
         }
-        // }
+        }
     
         // prompt for length
         passwordLength=prompt("How long would you like the password? (8 - 128 characters");
@@ -176,7 +191,7 @@ function BigFunction() {
     
     // This creates a new variable called new1, which has all of the characters of main without the commas, and is fed into the textarea and spat out onto the page
     // alert(main)
-    var new1 = main.join('');
-    document.getElementById("password").innerHTML = new1;
+    var finalPassword = main.join('');
+    document.getElementById("password").innerHTML = finalPassword;
 
 }
